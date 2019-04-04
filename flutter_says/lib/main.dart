@@ -32,7 +32,7 @@ class FlutterSays extends StatelessWidget {
 }
 
 class score extends StatelessWidget {
-  int _points = 1;
+  int _points = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +52,21 @@ class images extends StatelessWidget {
   String image1 = "";
   String image2 = "";
   images(this.image1, this.image2);
-
+  
   @override
   Widget imageContainer(String image) {
-    return Container(
-      height: 120.0,
-      width: 120.0,
-      decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage(image), fit: BoxFit.fill),
+    return GestureDetector(
+      onTap: () {
+        //print(image.replaceAll('assets/images/', ''));
+        //colorFilter: ColorFilter.mode(Colors.white.withOpacity(.3), BlendMode.srcATop)
+        print(image);
+      },
+      child: Container(
+        height: 120.0,
+        width: 120.0,
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage(image), fit: BoxFit.fill),
+        ),
       ),
     );
   }
