@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:audioplayers/audio_cache.dart';
 
 void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -97,7 +98,7 @@ class images extends State<ImageOpacity> {
   }
 
   void _onTap() {
-    print(image);
+    sounds(image.replaceAll('assets/images/', ''));
     setState(() {
       _opacity = 0.6;
     });
@@ -123,4 +124,28 @@ class images extends State<ImageOpacity> {
       ),
     );
   }
+}
+
+void sounds (String button)
+{
+  print(button);
+  AudioCache player = new AudioCache();
+  String audioPath = null;
+  
+  switch (button) {
+    case "blue.png":
+      audioPath = "sounds/blue_sound.mp3";
+      break;
+    case "green.png":
+      audioPath = "sounds/green_sound.mp3";
+      break;
+    case "red.png":
+      audioPath = "sounds/red_sound.mp3";
+      break;
+    case "yellow.png":
+      audioPath = "sounds/yellow_sound.mp3";
+      break;
+    default:
+  }
+  player.play(audioPath);
 }
