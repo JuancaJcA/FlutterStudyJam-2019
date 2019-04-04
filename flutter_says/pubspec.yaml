@@ -25,4 +25,8 @@ flutter:
      - assets/images/green.png
      - assets/images/red.png
      - assets/images/yellow.png
+     - assets/sounds/blue_sound.mp3
+     - assets/sounds/green_sound.mp3
+     - assets/sounds/red_sound.mp3
+     - assets/sounds/yellow_sound.mp3
 #_JcA

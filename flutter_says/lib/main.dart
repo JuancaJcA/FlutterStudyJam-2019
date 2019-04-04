@@ -23,8 +23,20 @@ class FlutterSays extends StatelessWidget {
         children: <Widget>[
           score(),
           SizedBox(height: 100),
-          images("assets/images/green.png", "assets/images/red.png"),
-          images("assets/images/yellow.png", "assets/images/blue.png")
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ImageOpacity("assets/images/green.png"),
+              ImageOpacity("assets/images/red.png")
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ImageOpacity("assets/images/yellow.png"),
+              ImageOpacity("assets/images/blue.png")
+            ],
+          ),
         ],
       ),
     );
@@ -48,34 +60,67 @@ class score extends StatelessWidget {
   }
 }
 
-class images extends StatelessWidget {
-  String image1 = "";
-  String image2 = "";
-  images(this.image1, this.image2);
-  
+class ImageOpacity extends StatefulWidget {
+  String image = "";
+  ImageOpacity(this.image);
   @override
-  Widget imageContainer(String image) {
-    return GestureDetector(
-      onTap: () {
-        //print(image.replaceAll('assets/images/', ''));
-        //colorFilter: ColorFilter.mode(Colors.white.withOpacity(.3), BlendMode.srcATop)
-        print(image);
-      },
-      child: Container(
-        height: 120.0,
-        width: 120.0,
-        decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage(image), fit: BoxFit.fill),
-        ),
-      ),
-    );
+  images createState() {
+    return new images(image);
+  }
+}
+
+class images extends State<ImageOpacity> {
+  var _opacity = 0.6;
+  String image = "";
+  images(this.image);
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _tapDown(TapDownDetails details) {
+    setState(() {
+      _opacity = 1.0;
+    });
+  }
+
+  void _tapUp(TapUpDetails details) {
+    setState(() {
+      _opacity = 1.0;
+    });
+  }
+
+  void _tapCancel() {
+    setState(() {
+      _opacity = 0.6;
+    });
+  }
+
+  void _onTap() {
+    print(image);
+    setState(() {
+      _opacity = 0.6;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[imageContainer(image1), imageContainer(image2)],
+    return GestureDetector(
+      onTapDown: _tapDown,
+      onTapUp: _tapUp,
+      onTap: _onTap,
+      onTapCancel: _tapCancel,
+      child: AnimatedOpacity(
+        duration: Duration(milliseconds: 50),
+        opacity: _opacity,
+        child: Container(
+          height: 120.0,
+          width: 120.0,
+          decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage(image), fit: BoxFit.fill),
+          ),
+        ),
+      ),
     );
   }
 }
