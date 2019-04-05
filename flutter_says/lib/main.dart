@@ -23,7 +23,7 @@ class FlutterSays extends StatelessWidget {
       child: Column(
         children: <Widget>[
           score(),
-          SizedBox(height: 100),
+          SizedBox(height: 85.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -37,6 +37,14 @@ class FlutterSays extends StatelessWidget {
               ImageOpacity("assets/images/yellow.png"),
               ImageOpacity("assets/images/blue.png")
             ],
+          ),
+          SizedBox(height: 25.0),
+          StartGame(),
+          SizedBox(height: 25.0),
+          FloatingActionButton.extended(
+            onPressed: () {},
+            label: Text("                           "),
+            backgroundColor: Colors.amber,
           ),
         ],
       ),
@@ -126,12 +134,11 @@ class images extends State<ImageOpacity> {
   }
 }
 
-void sounds (String button)
-{
+void sounds(String button) {
   print(button);
   AudioCache player = new AudioCache();
-  String audioPath = null;
-  
+  String audioPath = "";
+
   switch (button) {
     case "blue.png":
       audioPath = "sounds/blue_sound.mp3";
@@ -148,4 +155,34 @@ void sounds (String button)
     default:
   }
   player.play(audioPath);
+}
+
+class StartGame extends StatefulWidget {
+  @override
+  button createState() {
+    return new button();
+  }
+}
+
+class button extends State<StartGame> {
+  void _begin() {
+    setState(() {
+      print('apretado');
+      
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 85.0,
+      height: 85.0,
+      child: FloatingActionButton(
+          elevation: 0.0,
+          onPressed: _begin,
+          backgroundColor: Colors.red,
+          child: Icon(Icons.play_arrow, size: 80.0),
+          foregroundColor: Colors.grey),
+    );
+  }
 }
